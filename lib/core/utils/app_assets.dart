@@ -9,6 +9,7 @@
 
 class AppAssets {
   static const String imagesSplash = 'assets/images/splash.png';
+  static const String lottiesFireLoading = 'assets/lotties/fire_loading.json';
   static const String lottiesSplashLottie = 'assets/lotties/splash_lottie.json';
   static const String translationAr = 'assets/translation/ar.json';
 }

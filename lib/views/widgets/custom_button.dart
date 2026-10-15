@@ -8,7 +8,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.isSecondary = false,
   });
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String text;
   final bool isSecondary;
 

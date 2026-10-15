@@ -39,7 +39,9 @@ class InfoSection extends StatelessWidget {
         InfoCard(
           icon: Icons.color_lens,
           label: 'الهوايات والمواهب',
-          value: user.hobbies ?? 'لا يوجد',
+          value: (user.hobbies == null || user.hobbies!.trim().isEmpty)
+              ? 'لا يوجد'
+              : user.hobbies!,
         ),
       ],
     );

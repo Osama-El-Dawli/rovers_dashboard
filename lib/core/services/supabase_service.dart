@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:rovers_dashboard/core/services/data_service.dart';
 import 'package:rovers_dashboard/core/services/failure.dart';
+import 'package:rovers_dashboard/core/utils/app_consts.dart';
 import 'package:rovers_dashboard/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,6 +25,44 @@ class SupabaseService implements DataService {
       final response = await query;
       final users = response.map((x) => UserModel.fromJson(x)).toList();
       return Right(users);
+    } on PostgrestException {
+      return Left(ServerFailure(message: 'حدث خطأ في الاتصال بالخادم'));
+    } on SocketException {
+      return Left(NetworkFailure(message: 'لا يوجد اتصال بالانترنت'));
+    } catch (e) {
+      return Left(Failure(message: 'حدث خطأ ما'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateData({
+    required String endPoint,
+    required Map<String, dynamic> data,
+    required String id,
+  }) async {
+    try {
+      await _supabase
+          .from(endPoint)
+          .update({AppConsts.isSavedColumn: data[AppConsts.isSavedColumn]})
+          .eq(AppConsts.idColumn, id);
+      return Right(null);
+    } on PostgrestException {
+      return Left(ServerFailure(message: 'حدث خطأ في الاتصال بالخادم'));
+    } on SocketException {
+      return Left(NetworkFailure(message: 'لا يوجد اتصال بالانترنت'));
+    } catch (e) {
+      return Left(Failure(message: 'حدث خطأ ما'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteData({
+    required String endPoint,
+    required String id,
+  }) async {
+    try {
+      await _supabase.from(endPoint).delete().eq(AppConsts.idColumn, id);
+      return Right(null);
     } on PostgrestException {
       return Left(ServerFailure(message: 'حدث خطأ في الاتصال بالخادم'));
     } on SocketException {
