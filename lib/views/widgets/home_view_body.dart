@@ -15,6 +15,7 @@ class HomeViewBody extends StatelessWidget {
           SliverToBoxAdapter(child: FilterBar(onFilterChange: (value) {})),
           SliverToBoxAdapter(child: SizedBox(height: 24)),
           UserListView(),
+          SliverToBoxAdapter(child: SizedBox(height: 24)),
         ],
       ),
     );
