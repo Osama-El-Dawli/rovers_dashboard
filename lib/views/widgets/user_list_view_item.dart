@@ -35,7 +35,7 @@ class UserListViewItem extends StatelessWidget {
                 Container(
                   decoration: ShapeDecoration(
                     shape: CircleBorder(),
-                    color: user.isSaved ? AppColors.primary : AppColors.accent,
+                    color: !user.isSaved ? AppColors.primary : AppColors.accent,
                   ),
                   width: 8,
                   height: 8,
