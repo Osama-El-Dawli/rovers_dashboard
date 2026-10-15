@@ -9,12 +9,12 @@ class HomeViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          SizedBox(height: 12),
-          FilterBar(onFilterChange: (value) {}),
-          SizedBox(height: 16),
-          Expanded(child: UserListView()),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(child: SizedBox(height: 12)),
+          SliverToBoxAdapter(child: FilterBar(onFilterChange: (value) {})),
+          SliverToBoxAdapter(child: SizedBox(height: 24)),
+          UserListView(),
         ],
       ),
     );

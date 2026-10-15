@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rovers_dashboard/core/utils/app_colors.dart';
 
 class UserListViewItem extends StatelessWidget {
-  const new({super.key});
+  const UserListViewItem({super.key, required this.isNewUser});
+  final bool isNewUser;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,9 @@ class UserListViewItem extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         leading: Icon(Icons.person_2, size: 40, color: AppColors.foreground),
         title: Text(
-          'الاسم: أسامة سعيد',
+          'أسامة سعيد علي حسين الملا',
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -28,6 +31,15 @@ class UserListViewItem extends StatelessWidget {
             SizedBox(height: 8),
             Row(
               children: [
+                Container(
+                  decoration: ShapeDecoration(
+                    shape: CircleBorder(),
+                    color: isNewUser ? AppColors.primary : AppColors.accent,
+                  ),
+                  width: 8,
+                  height: 8,
+                ),
+                SizedBox(width: 8),
                 Text(
                   'النوع: ذكر',
                   style: TextStyle(

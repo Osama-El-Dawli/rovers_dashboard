@@ -6,10 +6,10 @@ class UserListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return SliverList.separated(
       itemCount: 10,
       itemBuilder: (context, index) {
-        return const UserListViewItem();
+        return const UserListViewItem(isNewUser: true);
       },
       separatorBuilder: (context, index) => const SizedBox(height: 16),
     );
