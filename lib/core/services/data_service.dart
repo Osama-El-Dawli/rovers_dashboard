@@ -10,8 +10,5 @@ abstract class DataService {
     required String id,
   });
 
-  Future<dynamic> deleteData({
-    required String endPoint,
-    required String id,
-  });
+  Future<dynamic> deleteData({required String endPoint, required String id});
 }
