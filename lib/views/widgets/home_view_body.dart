@@ -9,22 +9,24 @@ class HomeViewBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: SizedBox(height: 12)),
-          SliverToBoxAdapter(
-            child: FilterBar(
-              onFilterChange: (value) {
-                ref.read(selectedFilterProvider.notifier).state = value;
-              },
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: SizedBox(height: 12)),
+            SliverToBoxAdapter(
+              child: FilterBar(
+                onFilterChange: (value) {
+                  ref.read(selectedFilterProvider.notifier).state = value;
+                },
+              ),
             ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
-          UserListView(),
-          SliverToBoxAdapter(child: SizedBox(height: 24)),
-        ],
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+            UserListView(),
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+          ],
+        ),
       ),
     );
   }

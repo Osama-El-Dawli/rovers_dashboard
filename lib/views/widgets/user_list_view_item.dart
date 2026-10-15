@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rovers_dashboard/core/helper/handle_grade_name.dart';
 import 'package:rovers_dashboard/core/utils/app_colors.dart';
 import 'package:rovers_dashboard/models/user_model.dart';
+import 'package:rovers_dashboard/views/details_view.dart';
 
 class UserListViewItem extends StatelessWidget {
   const UserListViewItem({super.key, required this.user});
@@ -9,67 +10,84 @@ class UserListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.muted,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(width: 1, color: AppColors.mutedForeground),
-      ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        leading: Icon(Icons.person_2, size: 40, color: AppColors.foreground),
-        title: Text(
-          user.name,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: AppColors.foreground,
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: () {
+        Navigator.pushNamed(context, DetailsView.routeName, arguments: user);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.muted,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(width: 1, color: AppColors.mutedForeground),
+        ),
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
           ),
-        ),
-        subtitle: Column(
-          children: [
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Container(
-                  decoration: ShapeDecoration(
-                    shape: CircleBorder(),
-                    color: !user.isSaved ? AppColors.primary : AppColors.accent,
-                  ),
-                  width: 8,
-                  height: 8,
-                ),
-                SizedBox(width: 8),
-                Text(
-                  'النوع: ${user.sex == 'male' ? 'ذكر' : 'انثى'}',
-                  style: TextStyle(
-                    color: AppColors.mutedForeground,
-                    fontSize: 14,
-                  ),
-                ),
-                Spacer(),
-                Text(
-                  'الفرقة: ${handleGradeName(grade: user.grade)}',
-                  style: TextStyle(
-                    color: AppColors.mutedForeground,
-                    fontSize: 14,
-                  ),
-                ),
-                Spacer(flex: 3),
-              ],
+          leading: Icon(Icons.person_2, size: 40, color: AppColors.foreground),
+          title: Text(
+            user.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: AppColors.foreground,
             ),
-          ],
-        ),
-        trailing: IconButton(
-          padding: EdgeInsets.zero,
-          color: Colors.transparent,
-          onPressed: () {},
-          icon: Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 28,
-            color: AppColors.foreground,
+          ),
+          subtitle: Column(
+            children: [
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Container(
+                    decoration: ShapeDecoration(
+                      shape: CircleBorder(),
+                      color: !user.isSaved
+                          ? AppColors.primary
+                          : AppColors.accent,
+                    ),
+                    width: 8,
+                    height: 8,
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    'النوع: ${user.sex == 'male' ? 'ذكر' : 'انثى'}',
+                    style: TextStyle(
+                      color: AppColors.mutedForeground,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    'الفرقة: ${handleGradeName(grade: user.grade)}',
+                    style: TextStyle(
+                      color: AppColors.mutedForeground,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Spacer(flex: 3),
+                ],
+              ),
+            ],
+          ),
+          trailing: IconButton(
+            padding: EdgeInsets.zero,
+            color: Colors.transparent,
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                DetailsView.routeName,
+                arguments: user,
+              );
+            },
+            icon: Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 28,
+              color: AppColors.foreground,
+            ),
           ),
         ),
       ),
