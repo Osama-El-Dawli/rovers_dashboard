@@ -12,12 +12,17 @@ class SupabaseService implements DataService {
   @override
   Future<Either<Failure, List<UserModel>>> getData({
     required String endPoint,
+    Map<String, dynamic>? filters,
   }) async {
     try {
-      var response = await _supabase.from(endPoint).select();
-      List<UserModel> users = response
-          .map((x) => UserModel.fromJson(x))
-          .toList();
+      var query = _supabase.from(endPoint).select();
+      if (filters != null) {
+        for (final entry in filters.entries) {
+          query = query.eq(entry.key, entry.value);
+        }
+      }
+      final response = await query;
+      final users = response.map((x) => UserModel.fromJson(x)).toList();
       return Right(users);
     } on PostgrestException {
       return Left(ServerFailure(message: 'حدث خطأ في الاتصال بالخادم'));

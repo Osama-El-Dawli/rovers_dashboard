@@ -25,7 +25,8 @@ class UserListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final usersAsync = ref.watch(userPovider);
+    final filter = ref.watch(selectedFilterProvider);
+    final usersAsync = ref.watch(userPovider(filter));
 
     return usersAsync.when(
       loading: () => _buildList(users: _skeletonUsers, isLoading: true),
@@ -56,7 +57,7 @@ class UserListView extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: () => ref.invalidate(userPovider),
+                onPressed: () => ref.invalidate(userPovider(filter)),
                 child: Text(
                   'حاول مرة اخرى',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -66,7 +67,31 @@ class UserListView extends ConsumerWidget {
           ),
         ),
       ),
-      data: (users) => _buildList(users: users, isLoading: false),
+      data: (users) => users.isEmpty
+          ? _buildNoUsers()
+          : _buildList(users: users, isLoading: false),
+    );
+  }
+
+  Widget _buildNoUsers() {
+    return SliverFillRemaining(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.person_off_outlined,
+              size: 80,
+              color: AppColors.mutedForeground,
+            ),
+            SizedBox(height: 12),
+            Text(
+              'لا يوجد مستخدمين',
+              style: TextStyle(fontSize: 16, color: AppColors.mutedForeground),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
