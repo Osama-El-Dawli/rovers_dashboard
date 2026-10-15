@@ -15,4 +15,3 @@ class NetworkFailure extends Failure {
 class DatabaseFailure extends Failure {
   DatabaseFailure({required super.message});
 }
-

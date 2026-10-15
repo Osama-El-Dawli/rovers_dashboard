@@ -21,7 +21,7 @@ class SupabaseService implements DataService {
       return Right(users);
     } on PostgrestException {
       return Left(ServerFailure(message: 'حدث خطأ في الاتصال بالخادم'));
-    } on SocketException{
+    } on SocketException {
       return Left(NetworkFailure(message: 'لا يوجد اتصال بالانترنت'));
     } catch (e) {
       return Left(Failure(message: 'حدث خطأ ما'));
