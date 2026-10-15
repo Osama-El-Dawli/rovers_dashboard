@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rovers_dashboard/core/helper/handle_grade_name.dart';
 import 'package:rovers_dashboard/core/utils/app_colors.dart';
 import 'package:rovers_dashboard/models/user_model.dart';
 
@@ -42,7 +43,7 @@ class UserListViewItem extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  'النوع: ${user.sex}',
+                  'النوع: ${user.sex == 'male' ? 'ذكر' : 'انثى'}',
                   style: TextStyle(
                     color: AppColors.mutedForeground,
                     fontSize: 14,
@@ -50,7 +51,7 @@ class UserListViewItem extends StatelessWidget {
                 ),
                 Spacer(),
                 Text(
-                  'الفرقة: ${user.grade}',
+                  'الفرقة: ${handleGradeName(grade: user.grade)}',
                   style: TextStyle(
                     color: AppColors.mutedForeground,
                     fontSize: 14,
