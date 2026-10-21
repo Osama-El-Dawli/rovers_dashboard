@@ -30,43 +30,45 @@ class UserListView extends ConsumerWidget {
 
     return usersAsync.when(
       loading: () => _buildList(users: _skeletonUsers, isLoading: true),
-      error: (error, stackTrace) => SliverFillRemaining(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.error_outline,
-                size: 80,
-                color: AppColors.mutedForeground,
-              ),
-              SizedBox(height: 12),
-              Text(
-                (error as Failure).message,
-                style: TextStyle(
-                  fontSize: 16,
+      error: (error, stackTrace) {
+        return SliverFillRemaining(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 80,
                   color: AppColors.mutedForeground,
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: AppColors.background,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                SizedBox(height: 12),
+                Text(
+                  (error as Failure).message,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.mutedForeground,
                   ),
                 ),
-                onPressed: () => ref.invalidate(userPovider(filter)),
-                child: Text(
-                  'حاول مرة اخرى',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: AppColors.background,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () => ref.invalidate(userPovider(filter)),
+                  child: Text(
+                    'حاول مرة اخرى',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
       data: (users) => users.isEmpty
           ? _buildNoUsers()
           : _buildList(users: users, isLoading: false),
