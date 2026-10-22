@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rovers_dashboard/core/cache/prefs.dart';
 import 'package:rovers_dashboard/core/di/get_it.dart';
 import 'package:rovers_dashboard/core/router/router.dart';
 import 'package:rovers_dashboard/core/utils/app_colors.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   await EasyLocalization.ensureInitialized();
+  await Prefs.init();
   setup();
   await Supabase.initialize(
     url: dotenv.get('SUPABASE_URL'),

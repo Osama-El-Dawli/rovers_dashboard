@@ -40,6 +40,7 @@ dependencies:
   fluttertoast: ^10.0.2
   get_it: ^9.3.0
   lottie: ^3.6.1
+  shared_preferences: ^2.5.6
   skeletonizer: ^3.0.0
   supabase_flutter: ^2.18.3
 

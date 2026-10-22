@@ -21,7 +21,7 @@ class DetailsView extends StatelessWidget {
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: DetailsViewBody(user: user),
+      body: SafeArea(child: DetailsViewBody(user: user)),
     );
   }
 }
