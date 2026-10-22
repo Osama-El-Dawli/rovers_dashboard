@@ -28,23 +28,4 @@ class SupabaseAuth implements AuthService {
       return Left(Failure(message: 'حدث خطأ ما'));
     }
   }
-
-  @override
-  Future<Either<Failure, AuthResponse>> register({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      var response = await _supabase.signUp(email: email, password: password);
-      return Right(response);
-    } on AuthException catch (e) {
-      return Left(ServerFailure(message: e.message));
-    } on PostgrestException catch (e) {
-      return Left(ServerFailure(message: e.message));
-    } on SocketException {
-      return Left(NetworkFailure(message: 'لا يوجد اتصال بالانترنت'));
-    } catch (e) {
-      return Left(Failure(message: 'حدث خطأ ما'));
-    }
-  }
 }
