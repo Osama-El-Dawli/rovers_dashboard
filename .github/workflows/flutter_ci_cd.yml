@@ -38,6 +38,14 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Create .env file
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          printf 'SUPABASE_URL=%s\n' "$SUPABASE_URL" > .env
+          printf 'SUPABASE_KEY=%s\n' "$SUPABASE_KEY" >> .env
+
       - name: Install dependencies
         run: flutter pub get
 
