@@ -109,7 +109,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 ? null
                 : () {
                     if (_formKey.currentState!.validate()) {
-                      ref.read(authProvider.notifier).login(
+                      ref
+                          .read(authProvider.notifier)
+                          .login(
                             email: emailController.text.trim(),
                             password: passwordController.text,
                           );

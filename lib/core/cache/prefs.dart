@@ -30,8 +30,7 @@ class Prefs {
   static Future<bool> clear() => _instance.clear();
 
   // User Login Helpers
-  static Future<bool> setIsLoggedIn(bool value) =>
-      setBool(_kIsLoggedIn, value);
+  static Future<bool> setIsLoggedIn(bool value) => setBool(_kIsLoggedIn, value);
 
   static bool get isLoggedIn => getBool(_kIsLoggedIn);
 }

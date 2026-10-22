@@ -26,4 +26,3 @@ class LoginViewBody extends StatelessWidget {
     );
   }
 }
-
